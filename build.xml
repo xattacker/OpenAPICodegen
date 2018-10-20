@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="mail_connector" default="createjar">
+
+	<target name="createjar">
+	    
+	   <delete file="openapi-generator-cli.jar"/>
+	   
+	   <copy todir="classes">
+		<fileset dir="resources">
+		<include name="**" />
+		</fileset>
+		</copy>
+	   <jar destfile="openapi-generator-cli.jar" basedir="classes">
+	        <manifest>
+                <attribute name="Main-Class" value="org.openapitools.codegen.OpenAPIGenerator"/>
+            </manifest>
+	   </jar>
+	</target>
+
+</project>
+
