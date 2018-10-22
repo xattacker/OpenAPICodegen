@@ -11,5 +11,5 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 cd "$DIR"
 
-java -jar openapi-generator-cli-3.3.06.jar generate -i http://192.168.0.10:8085/Documents/api/member.yaml -g swift4 -o codeout_swift
+java -jar openapi-generator-cli.jar generate -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -g swift4 -o codeout_swift
 read -p "Press enter to continue"
