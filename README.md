@@ -1,8 +1,8 @@
 # OpenAPICodegen
 
-一個可自動剖析 swagger open API yaml 並產出各種語言的 code gen project
+一個可自動剖析 swagger open API yaml 文件並產出對應各種語言 call API 的 code gen project
 
-專案複製於
+project forked from:
 https://github.com/OpenAPITools/openapi-generator
 
 此專案改用 IDE eclipse 開啟, 並提供透過 Ant 方式封裝 jar 檔
