@@ -40,7 +40,7 @@ class {{classname}}(basePath: kotlin.String = "{{{basePath}}}") : ApiClient(base
             ResponseType.Informational -> TODO()
             ResponseType.Redirection -> TODO()
             ResponseType.ClientError -> throw ClientException((response as ClientError<*>).statusCode, (response as ClientError<*>).body as? String ?: "Client error")
-            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).statusCode, (response as ServerError<*>).message ?: "Server error")
+            ResponseType.ServerError -> throw ServerException((response as ServerError<*>).statusCode, (response as ServerError<*>).body as? String ?: "Server error")
             else -> throw kotlin.IllegalStateException("Undefined ResponseType.")
         }
     }
