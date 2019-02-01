@@ -92,7 +92,7 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
         let encoding:ParameterEncoding = isBody ? JSONDataEncoding() : URLEncoding()
 
         let xMethod = Alamofire.HTTPMethod(rawValue: method)
-        let fileKeys = parameters == nil ? [] : parameters!.filter { $1 is NSURL }
+        let fileKeys = parameters == nil ? [] : parameters!.filter { $1 is URL || $1 is [URL] }
                                                            .map { $0.0 }
 
         if fileKeys.count > 0 {
@@ -105,6 +105,16 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
                         }
                         else {
                             mpForm.append(fileURL, withName: k)
+                        }
+                    case let fileURLs as [URL]:
+                        for url in fileURLs
+                        {
+                            if let mimeType = self.contentTypeForFormPart(fileURL: url) {
+                                mpForm.append(url, withName: k, fileName: url.lastPathComponent, mimeType: mimeType)
+                            }
+                            else {
+                                mpForm.append(url, withName: k)
+                            }
                         }
                     case let string as String:
                         mpForm.append(string.data(using: String.Encoding.utf8)!, withName: k)

@@ -1,5 +1,6 @@
 package {{packageName}}.infrastructure
 
+import android.webkit.MimeTypeMap
 import okhttp3.*
 import java.io.File
 
@@ -32,11 +33,30 @@ open class ApiClient(val baseUrl: String) {
                  MediaType.parse(mediaType), content
              )
              mediaType == FormDataMediaType -> {
-                 var builder = FormBody.Builder()
+                 var builder = MultipartBody.Builder().setType(MediaType.parse(mediaType))
+               
                  // content's type *must* be Map<String, Any>
                  @Suppress("UNCHECKED_CAST")
-                 (content as Map<String,String>).forEach { key, value ->
-                     builder = builder.add(key, value)
+                 (content as Map<String,Any>).forEach {
+                     key, value ->
+
+                     if (value is String)
+                     {
+                         builder = builder.addFormDataPart(key, value)
+                     }
+                     else if (value is File)
+                     {
+                         builder = builder.addFormDataPart(key, value.name, RequestBody.create(MediaType.parse(getMimeType(value)), value))
+                     }
+                     else if (value is Array<*>)
+                     {
+                         value.forEach {
+                             if (it is File)
+                             {
+                                 builder = builder.addFormDataPart(key, it.name, RequestBody.create(MediaType.parse(getMimeType(it)), it))
+                             }
+                         }
+                     }
                  }
                  builder.build()
              }
@@ -69,7 +89,7 @@ open class ApiClient(val baseUrl: String) {
         }
 
         val url = urlBuilder.build()
-        val headers = requestConfig.headers + defaultHeaders
+        val headers = defaultHeaders + requestConfig.headers // The latter will replace the former with the same key
 
         if(headers[ContentType] ?: "" == "") {
             throw kotlin.IllegalStateException("Missing Content-Type header. This is required.")
@@ -126,5 +146,11 @@ open class ApiClient(val baseUrl: String) {
                     response.headers().toMultimap()
             )
         }
+    }
+
+    inline fun getMimeType(file: File): String {
+        val ext = MimeTypeMap.getFileExtensionFromUrl(file.name)
+        return if (!ext.isNullOrEmpty()) MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext.toLowerCase())
+               else "image/*"
     }
 }
