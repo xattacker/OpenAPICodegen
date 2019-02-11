@@ -72,7 +72,15 @@ open class AlamofireRequestBuilder<T>: RequestBuilder<T> {
      the file extension).  Return the desired Content-Type otherwise.
      */
     open func contentTypeForFormPart(fileURL: URL) -> String? {
-        return nil
+         if let id = UTTypeCreatePreferredIdentifierForTag(
+            kUTTagClassFilenameExtension,
+            fileURL.pathExtension as CFString, nil)?.takeRetainedValue(),
+            let contentType = UTTypeCopyPreferredTagWithClass(id, kUTTagClassMIMEType)?.takeRetainedValue()
+        {
+            return contentType as String
+        }
+        
+        return "application/octet-stream"
     }
 
     /**
