@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="mail_connector" default="createjar">
+<project name="OpenAPICodegen" default="createjar">
 
 	<target name="createjar">
 	    
