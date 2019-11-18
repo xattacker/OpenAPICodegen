@@ -697,7 +697,19 @@ public class Swift4Codegen extends DefaultCodegen implements CodegenConfig {
         if (name.length() == 0) {
             return "empty";
         }
-
+        
+        // add by xattacker on 2019-11-18, name may be contain invisible char, try to remove it
+        //name = name.replaceAll("[^\\\\x00-\\\\x7F]", "");
+        name = name.trim();
+        
+        String first_word = name.substring(0, 1);
+        Pattern firstPattern = Pattern.compile("[a-zA-Z0-9\\\\s+]");
+        Matcher matcher = firstPattern.matcher(first_word);
+        if (!matcher.find()) {
+      	  name = name.substring(1, name.length());
+        }
+        // end add
+        
         Pattern startWithNumberPattern = Pattern.compile("^\\d+");
         Matcher startWithNumberMatcher = startWithNumberPattern.matcher(name);
         if (startWithNumberMatcher.find()) {
