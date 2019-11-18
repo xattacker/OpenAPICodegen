@@ -700,6 +700,8 @@ public class Swift4Codegen extends DefaultCodegen implements CodegenConfig {
         
         // add by xattacker on 2019-11-18, name may be contain invisible char, try to remove it
         //name = name.replaceAll("[^\\\\x00-\\\\x7F]", "");
+        name = name.replaceAll(":", "");
+        name = name.replaceAll(" ", "");
         name = name.trim();
         
         String first_word = name.substring(0, 1);
@@ -717,9 +719,6 @@ public class Swift4Codegen extends DefaultCodegen implements CodegenConfig {
             String nameWithoutStartingNumbers = name.substring(startingNumbers.length());
 
             String enum_name = "_" + startingNumbers + org.openapitools.codegen.utils.StringUtils.camelize(nameWithoutStartingNumbers, true);
-            enum_name = enum_name.replaceAll(":", "");
-            enum_name = enum_name.replaceAll(" ", "");
-            
             return enum_name;
         }
 
