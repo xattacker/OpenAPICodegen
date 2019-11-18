@@ -704,7 +704,11 @@ public class Swift4Codegen extends DefaultCodegen implements CodegenConfig {
             String startingNumbers = startWithNumberMatcher.group(0);
             String nameWithoutStartingNumbers = name.substring(startingNumbers.length());
 
-            return "_" + startingNumbers + org.openapitools.codegen.utils.StringUtils.camelize(nameWithoutStartingNumbers, true);
+            String enum_name = "_" + startingNumbers + org.openapitools.codegen.utils.StringUtils.camelize(nameWithoutStartingNumbers, true);
+            enum_name = enum_name.replaceAll(":", "");
+            enum_name = enum_name.replaceAll(" ", "");
+            
+            return enum_name;
         }
 
         // for symbol, e.g. $, #
