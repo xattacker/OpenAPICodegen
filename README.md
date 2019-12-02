@@ -10,3 +10,13 @@ https://github.com/OpenAPITools/openapi-generator
 目前主要針對 kotlin client 以及 swift4 的 mustache template 檔案內容進行過調整
 (以上兩程式語言用於 App 端開發)
 
+### How to use:
+
+``` 
+command for swift:
+java -jar openapi-generator-cli.jar generate -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -g swift4 -o codeout_swift
+
+command for kotlin:
+java -jar openapi-generator-cli.jar generate -g kotlin -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -o codeout_kotlin
+
+``` 
