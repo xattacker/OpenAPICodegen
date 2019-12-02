@@ -16,17 +16,22 @@ https://github.com/OpenAPITools/openapi-generator
 command for swift:
 java -jar openapi-generator-cli.jar generate -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -g swift4 -o codeout_swift
 
+
 command for kotlin:
 java -jar openapi-generator-cli.jar generate -g kotlin -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -o codeout_kotlin
 
 ``` 
 
+
 ### How to include code generated API:
 ``` 
 iOS project:
-use cocoapod liculde 'Alamofire'
+
+use cocoapod pod 'Alamofire'
+
 
 android project:
+
 gradle dependencies add
     implementation 'com.squareup.moshi:moshi:1.7.0'
     implementation 'com.squareup.moshi:moshi-adapters:1.7.0'
