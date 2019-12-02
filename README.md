@@ -26,12 +26,10 @@ java -jar openapi-generator-cli.jar generate -g kotlin -i http://ptx.transportda
 ### How to include code generated API:
 ``` 
 iOS project:
-
 use cocoapod pod 'Alamofire'
 
 
 android project:
-
 gradle dependencies add
     implementation 'com.squareup.moshi:moshi:1.7.0'
     implementation 'com.squareup.moshi:moshi-adapters:1.7.0'
