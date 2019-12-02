@@ -20,3 +20,18 @@ command for kotlin:
 java -jar openapi-generator-cli.jar generate -g kotlin -i http://ptx.transportdata.tw/MOTC/API/Main/docs/v2 -o codeout_kotlin
 
 ``` 
+
+### How to include code generated API:
+``` 
+iOS project:
+use cocoapod liculde 'Alamofire'
+
+android project:
+gradle dependencies add
+    implementation 'com.squareup.moshi:moshi:1.7.0'
+    implementation 'com.squareup.moshi:moshi-adapters:1.7.0'
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.7.0'
+    implementation 'org.threeten:threetenbp:1.3.6'
+
+``` 
