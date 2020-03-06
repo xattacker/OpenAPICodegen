@@ -428,7 +428,7 @@ open class AlamofireDecodableRequestBuilder<T:Decodable>: AlamofireRequestBuilde
                 )
             })
         default:
-            validatedRequest.responseData(completionHandler: { (dataResponse: DataResponse<Data>) in
+            validatedRequest.responseData(completionHandler: { (dataResponse: DataResponse<Data, AFError>) in
                 cleanupRequest()
 
                 if let error = dataResponse.error
